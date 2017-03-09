@@ -1,6 +1,7 @@
 from flask import Flask
 from config import config
 import time,threading
+from .basic import Basic
 
 
 def create_app(config_name):
@@ -13,13 +14,17 @@ def create_app(config_name):
 
     return app
 
-def basic_thread(app):
+def basic_thread_start(app):
     basic=app.config["BASIC"]
     basic_t=threading.Thread(target=basic.run,name="basic_thread")
-    try:
-        basic_t.start()
-    except Exception as e:
-        print("app/__init__.py-basic_thread error")
-    finally:
-        basic_t.join()
+    app.config["BASIC_T"]=basic_t
+    basic_t.start()
 
+def basic_thread_join(app):
+    basic_t=app.config["BASIC_T"]
+    if not basic_t:
+        return
+    Basic.basic_end=False
+    basic_t.join()
+    
+    
