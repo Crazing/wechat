@@ -27,4 +27,7 @@ def basic_thread_join(app):
     Basic.basic_end=False
     basic_t.join()
     
-    
+def menu_creat(app):
+    menu=app.config["MENU"]
+    postJson=app.config["POSTJSON"]
+    menu.create(postJson,Basic.get_access_token())
