@@ -11,7 +11,7 @@ def create_app(config_name):
 
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
-
+    print("app_create")
     return app
 
 def basic_thread_start(app):
@@ -27,7 +27,7 @@ def basic_thread_join(app):
     Basic.basic_end=False
     basic_t.join()
     
-def menu_creat(app):
+def menu_create(app):
     menu=app.config["MENU"]
     postJson=app.config["POSTJSON"]
     menu.create(postJson,Basic.get_access_token())
