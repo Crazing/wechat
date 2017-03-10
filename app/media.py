@@ -1,27 +1,33 @@
 # -*- coding: utf-8 -*-
 # filename: media.py
-import urllib2
-import poster.encode
+import urllib
+#import poster.encode
 import json
-from poster.streaminghttp import register_openers
+import requests
+#from poster.streaminghttp import register_openers
 
 class Media(object):
     def __init__(self):
-        register_openers()
+        pass
+ #       register_openers()
     #上传图片
-    def uplaod(self, accessToken, filePath, mediaType):
+    def uplaod(self, accessToken, filePath, mediaType,timeType=True):
         openFile = open(filePath, "rb")
-        param = {'media': openFile}
-        postData, postHeaders = poster.encode.multipart_encode(param)
-
-        postUrl = "https://api.weixin.qq.com/cgi-bin/media/upload?access_token=%s&type=%s" % (accessToken, mediaType)
-        request = urllib2.Request(postUrl, postData, postHeaders)
-        urlResp = urllib2.urlopen(request)
-        print(urlResp.read())
+        param = {'file': openFile}
+        #postData, postHeaders = poster.encode.multipart_encode(param)
+        if timeType:
+            postUrl="https://api.weixin.qq.com/cgi-bin/material/add_material?access_token=%s&type=%s" % (accessToken, mediaType)
+        else:
+            postUrl = "https://api.weixin.qq.com/cgi-bin/media/upload?access_token=%s&type=%s" % (accessToken, mediaType)
+        #request = urllib.request.Request(postUrl, postData, postHeaders)
+        #urlResp = urllib.request.urlopen(request)
+        #print(urlResp.read())
+        r=requests.post(postUrl,files=param)
+        print(r.text)
 
     def get(self, accessToken, mediaId):
         postUrl = "https://api.weixin.qq.com/cgi-bin/media/get?access_token=%s&media_id=%s" % (accessToken, mediaId)
-        urlResp = urllib2.urlopen(postUrl)
+        urlResp = urllib.request.urlopen(postUrl)
 
         headers = urlResp.info().__dict__['headers']
         if ('Content-Type: application/json\r\n' in headers) or ('Content-Type: text/plain\r\n' in headers):
@@ -36,5 +42,5 @@ class Media(object):
     def delete(self, accessToken, mediaId):
         postUrl = "https://api.weixin.qq.com/cgi-bin/material/del_material?access_token=%s" % accessToken
         postData = "{ \"media_id\": \"%s\" }" % mediaId
-        urlResp = urllib2.urlopen(postUrl, postData)
+        urlResp = urllib.request.urlopen(postUrl, postData)
         print(urlResp.read())
