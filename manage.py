@@ -3,13 +3,14 @@ import os
 from app import create_app,basic_thread_start,basic_thread_join,menu_create
 from app.basic import Basic
 from app.media import Media
+from app.material import Material
 app = create_app(os.getenv('FLASK_CONFIG') or 'default')
 if __name__ == '__main__':
     basic_thread_start(app)
     #menu_create(app)
-    media=Media()
-    imgpath=os.path.abspath('.')+'/app/ststic/image/touxiang.jpg'
-    #app.run()
+    materia=Materia()
+    imgpath=os.path.abspath('.')+'/app/ststic/image/fengjing.jpg'
+    materia.upload(Basic.get_access_token(),imgpath)
     app.run(host='10.104.185.229',port=80,debug=True)
     basic_thread_join(app)
 
