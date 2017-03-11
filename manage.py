@@ -7,8 +7,8 @@ from app.material import Material
 app = create_app(os.getenv('FLASK_CONFIG') or 'default')
 if __name__ == '__main__':
     basic_thread_start(app)
-    materia=Materia()
-    imgpath=os.path.abspath('.')+'/app/ststic/image/fengjing.jpg'
+    materia=Material()
+    imgpath=os.path.abspath('.')+'/app/static/image/fengjing.jpg'
     materia.upload(Basic.get_access_token(),imgpath)
     menu_create(app)
     #app.run()

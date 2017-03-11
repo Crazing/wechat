@@ -20,7 +20,7 @@ class Basic:
                "client_credential&appid=%s&secret=%s" % (appId, appSecret))
         urlResp = urllib.request.urlopen(postUrl)
         urlResp = json.loads(urlResp.read().decode("utf-8"))
-        
+        print(urlResp) 
         Basic.__accessToken = urlResp['access_token']
         Basic.__leftTime = urlResp['expires_in']
     @staticmethod
@@ -31,9 +31,9 @@ class Basic:
 
     def run(self):
         while(Basic.basic_end):
-            if self.__leftTime > 10:
+            if Basic.__leftTime > 10:
                 time.sleep(2)
-                self.__leftTime -= 2
+                Basic.__leftTime -= 2
             else:
                 self.__real_get_access_token()
     @staticmethod

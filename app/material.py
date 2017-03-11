@@ -15,11 +15,11 @@ class Material(object):
         r=requests.post(postUrl,files=param)
         if r.status_code==200:
             dict=r.json()
-            print(dict['url'])
+            #print(dict['url'])
             print(r.text)
         else:
             print(r.text)
     def add_news(self, accessToken, news):
         postUrl = "https://api.weixin.qq.com/cgi-bin/material/add_news?access_token=%s" % accessToken
         urlResp = urllib.request.urlopen(postUrl, news)
-        print urlResp.read()
+        print(urlResp.read())
