@@ -55,9 +55,16 @@ def MsgHangdlePost():
                     return replyMsg.send()
                 else:
                     return reply.Msg().send()
-            else:
-                print("暂且不处理")
-                return reply.Msg().send()
+            if isinstance(recMsg, receive.EventMsg):
+                toUser = recMsg.FromUserName
+                fromUser = recMsg.ToUserName
+                if recMsg.Event == 'CLICK':
+                    if recMsg.Eventkey == 'mpGuide':
+                        content = "编写中，尚未完成"
+                        replyMsg = reply.TextMsg(toUser, fromUser, content)
+                        return replyMsg.send()
+            print("暂且不处理")
+            return reply.Msg().send()
         except Exception as Argment:
             return Argment
 

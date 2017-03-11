@@ -7,10 +7,11 @@ from app.material import Material
 app = create_app(os.getenv('FLASK_CONFIG') or 'default')
 if __name__ == '__main__':
     basic_thread_start(app)
-    #menu_create(app)
     materia=Materia()
     imgpath=os.path.abspath('.')+'/app/ststic/image/fengjing.jpg'
     materia.upload(Basic.get_access_token(),imgpath)
-    app.run(host='10.104.185.229',port=80,debug=True)
+    menu_create(app)
+    #app.run()
+    app.run(host='10.104.185.229',port=80)
     basic_thread_join(app)
 

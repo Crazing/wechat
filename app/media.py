@@ -11,9 +11,9 @@ class Media(object):
         pass
  #       register_openers()
     #上传图片
-    def uplaod(self, accessToken, filePath, mediaType,timeType=True):
+    def upload(self, accessToken, filePath, mediaType,timeType=True):
         openFile = open(filePath, "rb")
-        param = {'file': openFile}
+        param = {'media': openFile}
         #postData, postHeaders = poster.encode.multipart_encode(param)
         if timeType:
             postUrl="https://api.weixin.qq.com/cgi-bin/material/add_material?access_token=%s&type=%s" % (accessToken, mediaType)
@@ -23,7 +23,11 @@ class Media(object):
         #urlResp = urllib.request.urlopen(request)
         #print(urlResp.read())
         r=requests.post(postUrl,files=param)
-        print(r.text)
+        if r.status_code==200:
+            dict=r.json()
+            print(dict['media_id'])
+        else:
+            print(r.text)
 
     def get(self, accessToken, mediaId):
         postUrl = "https://api.weixin.qq.com/cgi-bin/media/get?access_token=%s&media_id=%s" % (accessToken, mediaId)
