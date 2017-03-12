@@ -20,7 +20,7 @@ class Basic:
                "client_credential&appid=%s&secret=%s" % (appId, appSecret))
         urlResp = urllib.request.urlopen(postUrl)
         urlResp = json.loads(urlResp.read().decode("utf-8"))
-        print(urlResp) 
+       # print(urlResp) 
         Basic.__accessToken = urlResp['access_token']
         Basic.__leftTime = urlResp['expires_in']
     @staticmethod

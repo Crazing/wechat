@@ -21,5 +21,6 @@ class Material(object):
             print(r.text)
     def add_news(self, accessToken, news):
         postUrl = "https://api.weixin.qq.com/cgi-bin/material/add_news?access_token=%s" % accessToken
-        urlResp = urllib.request.urlopen(postUrl, news)
+        news = json.dumps(news, ensure_ascii=False)
+        urlResp = urllib.request.urlopen(postUrl, news.encode("utf-8"))
         print(urlResp.read())

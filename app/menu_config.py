@@ -31,7 +31,7 @@ postJson = """
             {
                 "type": "media_id",
                 "name": "旅行",
-                "media_id": "4ryX-MBRXdougEru6pL5N_6VVJZN2zrCP5O7umBLads"
+                "media_id": "4ryX-MBRXdougEru6pL5N3DKeaCquGlgG4L9ZywXlAg"
             }
           ]
     }
